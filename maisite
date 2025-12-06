@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Современный Веб-сайт с MAI Ассистентом</title>
+    <!-- Добавленное мета-описание для SEO -->
+    <meta name="description" content="Универсальный помощник по поиску ответов в Интернете и анализу изображений. Построен с помощью MAI Ассистента.">
+    
+    <!-- Подключение Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Настройка шрифта Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Светло-серый фон */
+        }
+        /* Пользовательский стиль для градиентной кнопки/акцентов */
+        .gradient-accent {
+            background: linear-gradient(to right, #ec4899, #8b5cf6); /* Розово-фиолетовый градиент */
+        }
+        .text-gradient {
+            background-image: linear-gradient(to right, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Стилизация полосы прокрутки для контейнера чата */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: #a78bfa;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. НАВИГАЦИОННАЯ ПАНЕЛЬ (HEADER) -->
+    <header class="bg-white shadow-md sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Логотип/Название -->
+            <a href="#" class="text-2xl font-extrabold text-gray-900">
+                <span class="text-gradient">MAI</span>
+                Сайт
+            </a>
+
+            <!-- Навигация -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-purple-600 font-medium transition duration-150">О нас</a>
+            </nav>
+
+            <!-- Кнопка действия (открывает MAI Ассистент) -->
+            <button onclick="openChatModal()" class="hidden sm:block px-4 py-2 rounded-full text-white font-semibold gradient-accent shadow-lg hover:shadow-xl transition duration-300">
+                Открыть MAI Ассистент
+            </button>
+
+            <!-- Мобильное меню -->
+            <button class="md:hidden text-gray-600 hover:text-purple-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. ГЛАВНЫЙ РАЗДЕЛ (HERO SECTION) -->
+    <main class="py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
+                <span class="text-gradient">MAI ассистент</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                Ваш универсальный помощник по поиску ответов в интернете и анализу изображений.
+            </p>
+
+            <!-- Кнопки действия -->
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button onclick="openChatModal()" class="px-8 py-3 rounded-full text-white font-bold text-lg gradient-accent shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-105 w-full sm:w-auto">
+                    Спросить Ассистента
+                </button>
+                <a href="#" class="px-8 py-3 rounded-full text-purple-600 font-bold text-lg border-2 border-purple-600 hover:bg-purple-50 transition duration-300 w-full sm:w-auto">
+                    Узнать больше
+                </a>
+            </div>
+        </div>
+    </main>
+    
+
+    <!-- 4. РАЗДЕЛ О НАС (SECTION ABOUT) -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">
+                О нас
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                наш MAI ассистент поможет тебе с твоими часто задаваемыми вопросами
+            </p>
+        </div>
+    </section>
+
+
+    <!-- 5. ФУТЕР (FOOTER) -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-4">
+                <p class="text-xl font-bold">MAI Сайт</p>
+                <p class="text-sm text-gray-400">Создано для вдохновения</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#about" class="text-gray-400 hover:text-purple-400 transition duration-150">О нас</a>
+            </div>
+            <p class="text-sm text-gray-500">
+                &copy; 2025 Все права защищены. Разработано с помощью MAI Ассистента.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MAI CHAT MODAL -->
+    <div id="chat-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-lg h-3/4 md:h-2/3 rounded-xl shadow-2xl flex flex-col overflow-hidden transform transition-all duration-300" id="chat-content">
+            <!-- Header -->
+            <div class="p-4 bg-purple-600 text-white flex justify-between items-center rounded-t-xl">
+                <h2 class="text-xl font-bold">MAI Ассистент</h2>
+                <button onclick="closeChatModal()" class="text-white hover:text-purple-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto">
+                <!-- Начальное сообщение -->
+                <div class="flex justify-start">
+                    <div class="bg-gray-200 p-3 rounded-xl rounded-tl-none max-w-xs text-gray-800">
+                        <p>Здравствуйте! Я ваш MAI Ассистент, готовый ответить на ваши вопросы. Попробуйте прикрепить изображение!</p>
+                        <p class="text-xs mt-1 text-gray-500">Доступ к Google Search включен.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form - Обновлено для поддержки изображений -->
+            <form id="chat-form" class="p-4 border-t border-gray-200 bg-gray-50 flex flex-col">
+                <!-- Контейнер для предпросмотра изображения -->
+                <div id="image-preview-container" class="hidden mb-3 p-3 bg-white border border-gray-300 rounded-lg relative">
+                    <img id="image-preview" class="max-h-24 w-auto rounded-md object-contain" alt="Selected image preview">
+                    <button type="button" onclick="clearImage()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs hover:bg-red-600 transition">
+                        &times;
+                    </button>
+                </div>
+
+                <div class="flex space-x-3">
+                    <!-- Кнопка загрузки изображения -->
+                    <label for="image-input" class="p-3 bg-gray-300 text-gray-700 rounded-lg shadow-md hover:bg-gray-400 cursor-pointer transition duration-150 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </label>
+                    <input type="file" id="image-input" accept="image/*" class="hidden">
+
+                    <!-- Поле ввода текста -->
+                    <input 
+                        type="text" 
+                        id="chat-input" 
+                        placeholder="Ваш вопрос..." 
+                        class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-150 text-gray-800"
+                        autocomplete="off">
+
+                    <!-- Кнопка отправки -->
+                    <button 
+                        type="submit" 
+                        id="chat-send-button"
+                        class="px-4 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition duration-150 disabled:bg-purple-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript для модального окна и чата -->
+    <script>
+        const chatModal = document.getElementById('chat-modal');
+        const chatContent = document.getElementById('chat-content');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatSendButton = document.getElementById('chat-send-button');
+        
+        // Новые элементы для работы с изображением
+        const imageInput = document.getElementById('image-input');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const imagePreview = document.getElementById('image-preview');
+
+
+        // === УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ ===
+
+        // Инициализируем состояние перехода для плавности
+        chatModal.classList.add('opacity-0', 'pointer-events-none');
+        chatContent.classList.add('scale-95'); // Начальное состояние для анимации
+
+        function openChatModal() {
+            // 1. Устанавливаем отображение и конечную прозрачность
+            chatModal.classList.remove('hidden', 'pointer-events-none');
+            chatModal.classList.add('flex', 'opacity-100', 'pointer-events-auto');
+            
+            // 2. Ждем небольшую задержку, чтобы браузер зарегистрировал display:flex, затем запускаем анимацию масштаба
+            setTimeout(() => {
+                chatContent.classList.remove('scale-95');
+                chatInput.focus();
+                scrollToBottom();
+            }, 50); 
+        }
+
+        function closeChatModal() {
+            // 1. Запускаем анимацию закрытия (уменьшение масштаба и прозрачность)
+            chatModal.classList.remove('opacity-100', 'pointer-events-auto');
+            chatModal.classList.add('opacity-0', 'pointer-events-none');
+            chatContent.classList.add('scale-95');
+
+            // 2. Скрываем модальное окно после завершения перехода (300мс из CSS)
+            setTimeout(() => {
+                chatModal.classList.add('hidden');
+            }, 300); 
+        }
+
+        // Закрытие при клике вне модального окна
+        chatModal.addEventListener('click', (e) => {
+            if (e.target === chatModal) {
+                closeChatModal();
+            }
+        });
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+
+        // === ЛОГИКА ЗАГРУЗКИ ИЗОБРАЖЕНИЯ ===
+
+        // Функция для очистки выбранного изображения
+        function clearImage() {
+            imageInput.value = ''; // Сброс поля файла
+            imagePreview.src = '';
+            imagePreviewContainer.classList.add('hidden');
+        }
+
+        // Обработчик для отображения предпросмотра
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreview.src = event.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                clearImage();
+            }
+        });
+
+        // Конвертация файла в Base64 для API
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    return resolve(null);
+                }
+                const reader = new FileReader();
+                reader.onload = () => resolve({
+                    // Берем только данные, отбрасывая префикс "data:image/jpeg;base64,"
+                    data: reader.result.split(',')[1],
+                    mimeType: file.type
+                });
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+
+        // === ЛОГИКА ЧАТА И API ===
+
+        const GEMINI_MODEL = "gemini-2.5-flash-preview-09-2025";
+        const apiKey = ""; // Canvas предоставит этот ключ при выполнении
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+        
+        // Массив для хранения истории, хотя для мультимодальных запросов 
+        // мы пока отправляем только текущее сообщение.
+        let chatHistory = []; 
+
+        /**
+         * Отображает сообщение в контейнере чата.
+         * @param {string} text - Текст сообщения.
+         * @param {string} role - 'user' или 'assistant'.
+         * @param {Array<object>} sources - Источники (если есть).
+         * @param {object | null} base64Image - Объект { data, mimeType } для изображения пользователя.
+         */
+        function displayMessage(text, role, sources = [], base64Image = null) {
+            const isUser = role === 'user';
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex ' + (isUser ? 'justify-end' : 'justify-start');
+
+            let sourceHtml = '';
+            if (sources.length > 0) {
+                const uniqueSources = Array.from(new Set(sources.map(s => s.uri)))
+                    .map(uri => sources.find(s => s.uri === uri));
+
+                sourceHtml = `
+                    <div class="mt-2 text-xs text-gray-500 border-t border-gray-300 pt-2">
+                        <p class="font-semibold mb-1">Источники:</p>
+                        ${uniqueSources.map((s, index) => `
+                            <a href="${s.uri}" target="_blank" class="block truncate text-purple-600 hover:underline">
+                                [${index + 1}] ${s.title || 'Ссылка'}
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            let imageHtml = '';
+            if (isUser && base64Image && base64Image.data && base64Image.mimeType) {
+                imageHtml = `<img src="data:${base64Image.mimeType};base64,${base64Image.data}" class="w-full max-h-40 object-contain rounded-lg mb-2" alt="Uploaded Image">`;
+            }
+
+
+            const messageBubble = `
+                <div class="max-w-xs sm:max-w-md p-3 rounded-xl shadow-md transition-all duration-300 
+                            ${isUser ? 'bg-purple-600 text-white rounded-br-none' : 'bg-gray-200 text-gray-800 rounded-tl-none'}" 
+                            style="word-break: break-word;">
+                    ${imageHtml}
+                    <!-- Проверяем, есть ли текст, чтобы не отображать пустой тег p -->
+                    ${text ? `<p>${text}</p>` : ''}
+                    ${!isUser ? sourceHtml : ''}
+                </div>
+            `;
+            messageElement.innerHTML = messageBubble;
+            chatMessages.appendChild(messageElement);
+            scrollToBottom();
+        }
+
+        /**
+         * Выполняет API-запрос к Gemini с экспоненциальной задержкой.
+         */
+        async function fetchWithRetry(url, payload, maxRetries = 3) { // ИЗМЕНЕНО: maxRetries = 3 для более быстрого ответа
+            let attempt = 0;
+            while (attempt < maxRetries) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429) { // Too Many Requests
+                        attempt++;
+                        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    }
+
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        throw new Error(`HTTP error! status: ${response.status}. Body: ${errorBody}`);
+                    }
+
+                    return response.json();
+
+                } catch (error) {
+                    attempt++;
+                    if (attempt >= maxRetries) {
+                        throw error;
+                    }
+                    const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+                    //console.log(`Retrying API call in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+
+        /**
+         * Основная функция для обработки отправки формы и вызова API.
+         */
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userQuery = chatInput.value.trim();
+            const imageFile = imageInput.files[0];
+
+            if (!userQuery && !imageFile) return;
+
+            let base64Image = null;
+            let contentParts = [];
+
+            try {
+                // 1. Конвертируем изображение в Base64, если оно есть
+                if (imageFile) {
+                    base64Image = await fileToBase64(imageFile);
+                    contentParts.push({
+                        inlineData: {
+                            mimeType: base64Image.mimeType,
+                            data: base64Image.data
+                        }
+                    });
+                }
+
+                // 2. Добавляем текстовый запрос
+                if (userQuery) {
+                    contentParts.push({ text: userQuery });
+                }
+
+                // 3. Отображаем сообщение пользователя в чате (с изображением или без)
+                displayMessage(userQuery, 'user', [], base64Image);
+
+                // 4. Очищаем поля ввода и блокируем UI
+                chatInput.value = '';
+                clearImage(); 
+                
+                const loadingMessage = displayLoadingMessage();
+                setFormState(true);
+
+                // 5. Системная инструкция 
+                const systemPrompt = "Вы — MAI Ассистент, дружелюбный и полезный помощник. Отвечайте на русском языке, используя только чистый, связный текст без символов форматирования (например, без звездочек, жирного шрифта, заголовков). Вы можете решать задачи, находить актуальную информацию в Интернете, а также анализировать предоставленные изображения. Используйте предоставленную информацию для обоснования своих ответов.";
+                
+                const payload = {
+                    // Отправляем текущий запрос (текст + изображение)
+                    contents: [{ role: "user", parts: contentParts }],
+                    tools: [{ "google_search": {} }], // Включаем поиск Google
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                // 6. Вызов API
+                const result = await fetchWithRetry(apiUrl, payload);
+                
+                let assistantText = "Извините, я не смог получить ответ. Попробуйте перефразировать вопрос.";
+                let sources = [];
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    assistantText = candidate.content.parts[0].text;
+                    
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attribution => ({
+                                uri: attribution.web?.uri,
+                                title: attribution.web?.title,
+                            }))
+                            .filter(source => source.uri && source.title);
+                    }
+                }
+
+                // 7. Удаляем индикатор загрузки и отображаем ответ
+                loadingMessage.remove();
+                displayMessage(assistantText, 'assistant', sources);
+
+            } catch (error) {
+                console.error("API Error:", error);
+                loadingMessage.remove();
+                displayMessage("Произошла ошибка при подключении к сервису или обработке изображения. Пожалуйста, проверьте консоль.", 'assistant');
+            } finally {
+                setFormState(false);
+            }
+        });
+        
+        /**
+         * Создает и отображает сообщение о загрузке.
+         */
+        function displayLoadingMessage() {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex justify-start';
+            messageElement.innerHTML = `
+                <div class="bg-gray-200 p-3 rounded-xl rounded-tl-none max-w-xs text-gray-800">
+                    <div class="flex items-center space-x-2">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                        <span>Печатаю...</span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(messageElement);
+            scrollToBottom();
+            return messageElement;
+        }
+
+        /**
+         * Устанавливает состояние формы (отправка/блокировка).
+         */
+        function setFormState(isLoading) {
+            chatInput.disabled = isLoading;
+            chatSendButton.disabled = isLoading;
+            // imageInput.disabled не нужен, так как он скрыт, а клик идет по label
+            const imageLabel = document.querySelector('label[for="image-input"]');
+            if (isLoading) {
+                imageLabel.classList.add('opacity-50', 'pointer-events-none');
+            } else {
+                imageLabel.classList.remove('opacity-50', 'pointer-events-none');
+                chatInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>
